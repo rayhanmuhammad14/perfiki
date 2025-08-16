@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PERFIKI - Merah Putih: One for All</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Variabel & Global Style (Tema Oranye) --- */
+        :root {
+            --primary-orange: #D9531E; /* Oranye korporat sebagai warna utama */
+            --primary-orange-dark: #B64515; /* Oranye lebih gelap untuk hover */
+            --dark-text: #212529;
+            --body-text: #495057;
+            --light-grey-bg: #f8f9fa;
+            --white-color: #ffffff;
+            --border-color: #dee2e6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--white-color);
+            color: var(--body-text);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        h1, h2, h3, h4 { color: var(--dark-text); font-weight: 700; }
+        a { text-decoration: none; transition: all 0.3s ease; }
+
+        /* --- Header --- */
+        .top-bar {
+            background-color: var(--light-grey-bg);
+            padding: 8px 0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .top-bar-content { display: flex; justify-content: space-between; align-items: center; }
+        .top-bar-links a { color: var(--body-text); margin-left: 15px; }
+        .top-bar-links a:hover { color: var(--primary-orange); }
+
+        .main-header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 2rem; font-weight: 700; color: var(--primary-orange); }
+        .main-nav ul { list-style: none; display: flex; gap: 40px; }
+        .main-nav a { color: var(--dark-text); font-weight: 500; padding-bottom: 5px; border-bottom: 2px solid transparent; }
+        .main-nav a:hover, .main-nav a.active { color: var(--primary-orange); border-bottom-color: var(--primary-orange); }
+
+        /* --- Hero Section with YouTube Video --- */
+        .hero-video-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white-color);
+            overflow: hidden;
+        }
+        
+        .video-background-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .video-background-wrapper iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw;
+            min-height: 100vh;
+            min-width: 177.77vh;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .hero-video-section::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        .hero-content {
+             position: relative;
+             z-index: 1;
+        }
+
+        .hero-content h1 {
+            color: var(--white-color);
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .hero-content p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-weight: 400;
+        }
+        .btn { display: inline-block; padding: 12px 30px; border-radius: 5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-orange { background-color: var(--primary-orange); color: var(--white-color); }
+        .btn-orange:hover { background-color: var(--primary-orange-dark); }
+
+        /* --- Highlights Section --- */
+        .highlights-section {
+            padding: 40px 0;
+            background-color: var(--white-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .highlights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; text-align: center; }
+        .highlight-item svg { width: 50px; height: 50px; margin-bottom: 15px; color: var(--primary-orange); }
+        .highlight-item h3 { font-size: 2.5rem; color: var(--dark-text); }
+        .highlight-item p { font-size: 1rem; color: var(--body-text); }
+
+        /* --- General Section Styling --- */
+        .section { padding: 80px 0; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.8rem; margin-bottom: 15px; position: relative; display: inline-block; }
+        .section-title h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--primary-orange); margin: 15px auto 0; }
+        .section-title p { max-width: 700px; margin: 0 auto; }
+
+        /* --- PERUBAHAN CSS UNTUK BERITA TERKINI --- */
+        .news-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Layout 2 kolom */
+            gap: 50px; /* Jarak antar kolom */
+            align-items: center; /* Menyelaraskan vertikal */
+        }
+        .featured-news-image img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1; /* Rasio gambar 1:1 (persegi) */
+            object-fit: cover; /* Memastikan gambar mengisi area tanpa distorsi */
+            border-radius: 8px;
+        }
+        .featured-news-content h3 {
+            font-size: 2.5rem;
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+        .featured-news-content h3 a {
+            color: var(--dark-text);
+        }
+        .featured-news-content h3 a:hover {
+            color: var(--primary-orange);
+        }
+        .news-meta {
+            color: var(--primary-orange);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        .featured-news-content p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+        .read-more-btn {
+            color: var(--primary-orange);
+            font-weight: 700;
+        }
+        /* AKHIR PERUBAHAN CSS */
+
+        /* --- About Section --- */
+        .about-section { background-color: var(--light-grey-bg); }
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 50px; }
+        .about-text h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .about-text p { margin-bottom: 20px; }
+        .about-image {
+            height: 450px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            background-image: url('https://scontent-sea1-1.cdninstagram.com/v/t51.2885-15/22711181_1945607355727128_302481303749321728_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=8ae9d6&_nc_ohc=CIyJ1f4Jz_gAX-4S4qd&_nc_ht=scontent-sea1-1.cdninstagram.com&edm=ANo9K5cEAAAA&oh=00_AfC-u-l1Gv_FzXwK1F_m3u-C_H4b5O3JtXjN9mP8k-s9Yw&oe=6628A5B1');
+        }
+        
+        /* --- Footer --- */
+        .main-footer { background-color: var(--primary-orange); color: var(--white-color); padding: 60px 0 20px 0; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+        .footer-col h4 { color: var(--white-color); font-size: 1rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col .logo { color: var(--white-color); }
+        .footer-col p { color: #ffd8c5; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col a { color: #ffd8c5; }
+        .footer-col a:hover { color: var(--white-color); text-decoration: underline; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.2); font-size: 0.9rem; }
+
+        /* --- Responsive --- */
+        @media(max-width: 992px) {
+            .main-nav { display: none; }
+            .hero-content h1 { font-size: 3rem; }
+            .about-content { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media(max-width: 768px) {
+            .news-layout { grid-template-columns: 1fr; } /* Ubah layout berita jadi 1 kolom di mobile */
+            .highlights-grid, .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="top-bar">
+            <div class="container top-bar-content">
+                <span>Energi untuk Karya Terbaik Bangsa</span>
+                <div class="top-bar-links">
+                    <a href="#">Karir</a>
+                    <a href="#">Kontak</a>
+                    <a href="#">English</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container header-content">
+                <a href="#" class="logo">PERFIKI</a>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#" class="active">Beranda</a></li>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Proyek</a></li>
+                        <li><a href="#">Hubungan Investor</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-video-section">
+            
+            <div class="video-background-wrapper">
+                <iframe 
+                    frameborder="0" 
+                    height="100%" 
+                    width="100%" 
+                    src="https://www.youtube.com/embed/deXPdbMpyGI?autoplay=1&mute=1&loop=1&playlist=deXPdbMpyGI&controls=0&showinfo=0&autohide=1&modestbranding=1"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="hero-content">
+                <h1>MERAH PUTIH: ONE FOR ALL</h1>
+                <p>Ketika bendera pusaka hilang, sekelompok anak pemberani memulai petualangan untuk menyelamatkan upacara 17 Agustus. Sebuah kisah tentang persahabatan, keberanian, dan arti sejati dari cinta tanah air.</p>
+                <a href="#" class="btn btn-orange">Lihat Trailer</a>
+            </div>
+            
+        </section>
+
+        <section class="highlights-section">
+            <div class="container">
+                <div class="highlights-grid">
+                    <div class="highlight-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/></svg>
+                        <h3>150+</h3>
+                        <p>Proyek Selesai</p>
+                    </div>
+                    <div class="highlight-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                        <h3>42</h3>
+                        <p>Klien Internasional</p>
+                    </div>
+                    <div class="highlight-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M8.013 1.5a.5.5 0 0 0-.926 0l-1.6 3.236-3.58.52a.5.5 0 0 0-.277.853l2.59 2.524-.612 3.565a.5.5 0 0 0 .725.527L8 13.6l3.2.168a.5.5 0 0 0 .725-.527l-.612-3.565 2.59-2.524a.5.5 0 0 0-.277-.853l-3.58-.52-1.6-3.236z"/></svg>
+                        <h3>25</h3>
+                        <p>Penghargaan Industri</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Berita Terkini</h2>
+                </div>
+                <div class="news-layout">
+                    <div class="featured-news-image">
+                        <img src="img/1.png" alt="Poster Film Merah Putih: One for All">
+                    </div>
+                    <div class="featured-news-content">
+                        <p class="news-meta">FILM NASIONAL | SEGERA TAYANG</p>
+                        <h3><a href="#">Merah Putih: One for All</a></h3>
+                        <p>Sebuah film petualangan keluarga yang menceritakan misi sekelompok anak pemberani dalam mencari kembali bendera pusaka desa yang hilang menjelang upacara 17 Agustus.</p>
+                        <a href="#" class="read-more-btn">Baca Sinopsis Lengkap &rarr;</a>
+                    </div>
+                </div>
+                </div>
+        </section>
+
+        <section class="section about-section">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>Lebih dari 10 Tahun Menciptakan Karya</h2>
+                        <p>Sejak didirikan, Perfiki telah berkomitmen untuk menjadi yang terdepan dalam industri kreatif. Kami menggabungkan seni bercerita dengan keunggulan teknis untuk menghasilkan karya yang tidak hanya dilihat, tetapi juga dirasakan.</p>
+                        <a href="#" class="btn btn-orange">Selengkapnya Tentang Kami</a>
+                    </div>
+                    <div class="about-image"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 class="logo">PERFIKI</h4>
+                    <p>PT Perfiki Karya Indonesia (Persero) <br> Menara Kreatif Lt. 25 <br> Jl. Jend. Sudirman Kav. 52-53, Jakarta Selatan 12190, Indonesia.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Tentang Kami</h4>
+                    <ul>
+                        <li><a href="#">Visi & Misi</a></li>
+                        <li><a href="#">Sejarah Perusahaan</a></li>
+                        <li><a href="#">Tim Manajemen</a></li>
+                        <li><a href="#">Tata Kelola</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tautan Cepat</h4>
+                    <ul>
+                        <li><a href="#">Berita</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hubungi Kami</h4>
+                    <ul>
+                        <li><a href="#">info@perfiki.com</a></li>
+                        <li><a href="#">+62 21 1234 5678</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PT Perfiki Karya Indonesia (Persero). Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
